@@ -3,6 +3,18 @@
 An implementation of a Django model that returns tickets, as described
 by the [Flickr blog post][flickr].
 
+## Installation
+
+I uploaded it to [PyPi][pypi], so you can grab it there if you'd like with
+
+    pip install django-ticketing
+
+or install with pip the git address:
+
+    pip install git+git@github.com:streeter/django-ticketing.git
+
+You're choice.
+
 ## Usage
 
 To use this, you can either use the model interface, or just the shortcut
@@ -41,4 +53,5 @@ Of course, you may need to change the host of the DB and user that connects, but
 you should get the idea.
 
 [flickr]: http://code.flickr.com/blog/2010/02/08/ticket-servers-distributed-unique-primary-keys-on-the-cheap/
+[pypi]: http://pypi.python.org/pypi/django-ticketing/0.1.0
 [south]: http://south.aeracode.org/
