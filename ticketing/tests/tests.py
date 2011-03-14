@@ -57,3 +57,30 @@ class TicketingTest(TestCase):
             self.assertTrue(t1 > t0, "Ticket %s is not greater than ticket %s!" % (t1, t0))
             t0 = t1
     
+    def test_get_ticket_shortcut(self):
+        from ticketing.models import get_ticket
+        t0 = get_ticket()
+        self.assertTrue(t0, "Ticket %s is does not evaulate to true!" % t0)
+        self.assertTrue(t0 > 0, "Ticket %s is not greater than zero!" % t0)
+        
+        t1 = get_ticket()
+        self.assertTrue(t1, "Ticket %s is does not evaulate to true!" % t1)
+        self.assertTrue(t1 > 0, "Ticket %s is not greater than zero!" % t1)
+        self.assertTrue(t1 > t0, "Ticket %s is not greater than Ticket %s!" % (t1, t0))
+    
+    def test_get_ticket_shortcut_n_times(self):
+        import random
+        n = int((random.random() + 1) * 100)
+        
+        from ticketing.models import get_ticket
+        
+        t0 = get_ticket()
+        self.assertTrue(t0 > 0, "Ticket %s is not greater than zero!" % t0)
+        
+        for i in range(0, n):
+            t1 = get_ticket()
+            self.assertTrue(t1 > 0, "Ticket %s is not greater than zero!" % t1)
+            self.assertTrue(t1 > t0, "Ticket %s is not greater than ticket %s!" % (t1, t0))
+            t0 = t1
+    
+

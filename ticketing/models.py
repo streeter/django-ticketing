@@ -27,3 +27,7 @@ class Ticketing(models.Model):
     
     def __str__(self):
         return str(unicode(self))
+
+def get_ticket():
+    ticket = Ticketing.objects.create()
+    return ticket.ticket
