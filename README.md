@@ -45,9 +45,9 @@ it runs using sqlite3. To run on MySQL, uncomment the section in `runtests.py`
 and then create a DB that Django can connect to, and give the Django user
 permissions to create a new testing DB, run the following commands:
 
-    mysql -h localhost -u root -e "DROP DATABASE ticketing_test";
-    mysql -h localhost -u root -e "CREATE DATABASE ticketing_test";
-    mysql -h localhost -u root -e "GRANT ALL ON ticketing_test.* TO 'ticketing_test'@'localhost' IDENTIFIED BY ''"
+    mysql -u root -e "DROP DATABASE ticketing_test";
+    mysql -u root -e "CREATE DATABASE ticketing_test";
+    mysql -u root -e "GRANT ALL ON ticketing_test.* TO 'ticketing_test'@'localhost' IDENTIFIED BY ''"
 
 Of course, you may need to change the host of the DB and user that connects, but
 you should get the idea.
