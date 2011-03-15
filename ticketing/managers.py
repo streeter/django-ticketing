@@ -1,3 +1,4 @@
+from ticketing import conf
 from django.db import models
 
 class TicketingManager(models.Manager):

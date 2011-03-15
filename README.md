@@ -29,13 +29,55 @@ function defined in `ticketing.models`. That usage looks like the following:
 This assumes you've had the single table that needs to be created in the DB,
 in other words, run `syncdb` or migrated with [South][south].
 
+### Multiple Sequences
+
+`django-ticketing` also supports multiple sequences, which allows one to have
+sequences of tickets that are independent. This means you could have a sequence
+for users, a sequence for posts and a sequence for widgets. This is configured
+through your Django settings configuration.
+
+Simply define a setting called `TICKETING_SEQUENCES` with a tuple of sequence
+names that can be valid table names. This defaults to the tuple `('default',)`.
+In addition, you can define the default sequence new tickets are taken from with
+the setting `TICKETING_DEFAULT_SEQUENCE`, which defaults to `'default'`.
+
+Note that `TICKETING_DEFAULT_SEQUENCE` must a sequence name that is defined
+inside of `TICKETING_SEQUENCES`, otherwise an exception will be raised at
+during setup.
+
+So to have sequences for the above example, put the following lines in your
+`settings.py`:
+
+    TICKETING_DEFAULT_SEQUENCE = 'users'
+    TICKETING_SEQUENCES = ('users', 'posts', 'widgets', )
+
+Then, to get a ticket from a specific sequence, pass in the sequence name to
+`get_ticket()`:
+
+    # Get yourself a user ticket
+    user_ticket = get_ticket('users')
+    # Get yourself another user ticket
+    user_ticket = get_ticket()
+    # Get yourself a posts ticket
+    post_ticket = get_ticket('posts')
+
+Notice that the default sequence for `get_ticket()` is the value of the
+`TICKETING_DEFAULT_SEQUENCE` configuration variable.
+
+### Other Configuration Options
+
+`TICKETING_APP_LABEL`: This is used to specify the prefix for all the DB
+tablenames. The default value is `'ticketing'`. Be sure you know what you are
+doing when you change this.
+
+
 ## Testing
 
 There are some tests included. To run those tests, simply execute `runtests.py`:
 
     [streeter] $ python runtests.py
     ----------------------------------------------------------------------
-    Ran 7 tests in 0.441s
+    Ran 6 tests in 0.213s
     
     OK
     [streeter] $

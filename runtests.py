@@ -25,6 +25,7 @@ if not settings.configured:
         ],
         ROOT_URLCONF='',
         DEBUG=False,
+        TICKETING_TESTING=True,
     )
 
 from django.test.simple import run_tests
