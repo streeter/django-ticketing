@@ -19,7 +19,7 @@ class mytest(test):
 
 setup(
     name='django-ticketing',
-    version='0.2.0',
+    version='0.2.1',
     author='Chris Streeter',
     author_email='chris@chrisstreeter.com',
     url='http://github.com/streeter/django-ticketing',
