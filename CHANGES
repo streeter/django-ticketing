@@ -1,6 +1,8 @@
 
 0.1.0
-
 * Initial implementation
 
-(History beyond 0.1.0 is not present)
+0.2.0
+* Added support for multiple sequences
+
+(History beyond 0.2.0 is not present)
