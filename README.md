@@ -13,7 +13,7 @@ or install with pip the git address:
 
     pip install git+git@github.com:streeter/django-ticketing.git
 
-You're choice.
+You're choice. Then add `ticketing` to your `INSTALLED_APPS`.
 
 ## Usage
 
@@ -63,6 +63,10 @@ Then, to get a ticket from a specific sequence, pass in the sequence name to
 
 Notice that the default sequence for `get_ticket()` is the value of the
 `TICKETING_DEFAULT_SEQUENCE` configuration variable.
+
+Also, after you change the value of `TICKETING_SEQUENCES`, be sure to re-run
+`syncdb` to make sure the new tables are created (or whatever DB table creation
+you have in your environment).
 
 ### Other Configuration Options
 
