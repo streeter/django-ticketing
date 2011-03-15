@@ -95,5 +95,5 @@ Of course, you may need to change the host of the DB and user that connects, but
 you should get the idea.
 
 [flickr]: http://code.flickr.com/blog/2010/02/08/ticket-servers-distributed-unique-primary-keys-on-the-cheap/
-[pypi]: http://pypi.python.org/pypi/django-ticketing/0.1.0
+[pypi]: http://pypi.python.org/pypi/django-ticketing/
 [south]: http://south.aeracode.org/
