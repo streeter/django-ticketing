@@ -5,4 +5,10 @@
 0.2.0
 * Added support for multiple sequences
 
-(History beyond 0.2.0 is not present)
+0.2.1
+* Updated README
+
+0.3.0
+* Added BigAutoField, which allows for extra large tickets on MySQL backends
+
+(History beyond 0.3.0 is not present)

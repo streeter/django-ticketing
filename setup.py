@@ -19,9 +19,9 @@ class mytest(test):
 
 setup(
     name='django-ticketing',
-    version='0.2.1',
+    version='0.3.0',
     author='Chris Streeter',
-    author_email='chris@chrisstreeter.com',
+    author_email='pypi@chrisstreeter.com',
     url='http://github.com/streeter/django-ticketing',
     description = 'Generate tickets efficiently in a database in Django',
     packages=find_packages(),
