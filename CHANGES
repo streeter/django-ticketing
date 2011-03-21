@@ -11,4 +11,7 @@
 0.3.0
 * Added BigAutoField, which allows for extra large tickets on MySQL backends
 
+0.4.0
+* Add TicketField, which allows one to use a ticket as a field in other classes.
+
 (History beyond 0.3.0 is not present)
