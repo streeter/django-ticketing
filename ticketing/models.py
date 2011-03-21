@@ -6,6 +6,15 @@ from ticketing.managers import TicketingManager
 # Container for all the ticketing models
 ticketing_models = {}
 
+class BigAutoField(models.AutoField):
+    
+    def db_type(self, connection):
+        if connection.settings_dict['ENGINE'] == 'django.db.backends.mysql':
+            return 'bigint UNSIGNED AUTO_INCREMENT'
+        else:
+            return super(BigAutoField, self).db_type(connection)
+    
+
 class BaseTicketing(models.Model):
     """
     The base class used by all Ticket generator models.
@@ -20,7 +29,7 @@ class BaseTicketing(models.Model):
     
     # Explicitly set the id of the model, even though it is the same
     # as the one Django gives it.
-    id = models.AutoField(null=False, primary_key=True)
+    id = BigAutoField(null=False, primary_key=True)
     
     # This is just the smallest placeholder we can create that we can
     # replace into to generate a new id.
