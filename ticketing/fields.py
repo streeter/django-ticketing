@@ -51,7 +51,7 @@ class TicketField(models.BigIntegerField):
         "Returns a suitable description of this field for South."
         # We'll just introspect the _actual_ field.
         from south.modelsinspector import introspector
-        field_class = 'ticketing.models.TicketField'
+        field_class = 'ticketing.fields.TicketField'
         args, kwargs = introspector(self)
         # That's our definition!
         return (field_class, args, kwargs)
