@@ -1,20 +1,11 @@
 from ticketing import conf
 from django.db import models
 from django.db.models.signals import post_syncdb
+from ticketing.fields import BigAutoField
 from ticketing.managers import TicketingManager
 
 # Container for all the ticketing models
 ticketing_models = {}
-
-class BigAutoField(models.AutoField):
-    
-    def db_type(self, *args, **kwargs):
-        connection = kwargs.get('connection', None)
-        if connection and connection.settings_dict['ENGINE'] == 'django.db.backends.mysql':
-            return 'bigint UNSIGNED AUTO_INCREMENT'
-        else:
-            return super(BigAutoField, self).db_type(*args, **kwargs)
-    
 
 class BaseTicketing(models.Model):
     """
