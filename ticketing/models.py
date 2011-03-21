@@ -8,11 +8,12 @@ ticketing_models = {}
 
 class BigAutoField(models.AutoField):
     
-    def db_type(self, connection):
-        if connection.settings_dict['ENGINE'] == 'django.db.backends.mysql':
+    def db_type(self, *args, **kwargs):
+        connection = kwargs.get('connection', None)
+        if connection and connection.settings_dict['ENGINE'] == 'django.db.backends.mysql':
             return 'bigint UNSIGNED AUTO_INCREMENT'
         else:
-            return super(BigAutoField, self).db_type(connection)
+            return super(BigAutoField, self).db_type(*args, **kwargs)
     
 
 class BaseTicketing(models.Model):
