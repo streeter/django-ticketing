@@ -5,7 +5,7 @@ class TicketingManager(models.Manager):
     
     def create(self):
         id = self.get_ticket()
-        return super(TicketingManager, self).get_query_set().get(pk=id)
+        return self.model(id=id, stub=self.model.STUB_DEFAULT)
     
     def get_query_set(self):
         raise NotImplementedError()
@@ -20,7 +20,7 @@ class TicketingManager(models.Manager):
         sql = "REPLACE INTO `%s` " % (self.model._meta.db_table)
         sql += "(`stub`) VALUES (%s)"
         
-        result = cursor.execute(sql, [True])
+        result = cursor.execute(sql, [self.model.STUB_DEFAULT])
         transaction.commit_unless_managed(using=self.db)
         if hasattr(cursor, 'lastrowid') and cursor.lastrowid:
             return cursor.lastrowid

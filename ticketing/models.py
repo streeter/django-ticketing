@@ -25,7 +25,8 @@ class BaseTicketing(models.Model):
     
     # This is just the smallest placeholder we can create that we can
     # replace into to generate a new id.
-    stub = models.BooleanField(null=False, default=True, unique=True)
+    STUB_DEFAULT = True
+    stub = models.BooleanField(null=False, default=STUB_DEFAULT, unique=True)
     
     # Override the default manager
     objects = TicketingManager()
