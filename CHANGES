@@ -14,4 +14,10 @@
 0.4.0
 * Add TicketField, which allows one to use a ticket as a field in other classes.
 
-(History beyond 0.3.0 is not present)
+0.5.0
+* Fixed a race condition in TicketManager.create() I wanted to emulate the
+default behavior and return a Ticket instance, but I was doing so by executing
+a second get query to get the object with that new ticket id. But that object
+isn't guaranteed to exist!
+
+(History beyond 0.5.0 is not present)
