@@ -8,7 +8,7 @@ class BigAutoField(models.AutoField):
         if connection and connection.settings_dict['ENGINE'] == 'django.db.backends.mysql':
             return 'bigint UNSIGNED AUTO_INCREMENT'
         else:
-            return super(BigAutoField, self).db_type(*args, **kwargs)
+            return models.AutoField.db_type(self, *args, **kwargs)
     
 
 class TicketField(models.BigIntegerField):
@@ -25,7 +25,7 @@ class TicketField(models.BigIntegerField):
             # Use the default sequence
             self.sequence = conf.DEFAULT_SEQUENCE
         kwargs['editable'] = False
-        super(TicketField, self).__init__(**kwargs)
+        models.BigIntegerField.__init__(self, **kwargs)
     
     def pre_save(self, model_instance, add):
         """
@@ -38,14 +38,14 @@ class TicketField(models.BigIntegerField):
             setattr(model_instance, self.attname, value)
             return value
         else:
-            return super(TicketField, self).pre_save(model_instance, add)
+            return models.BigIntegerField.pre_save(self, model_instance, add)
     
     def db_type(self, *args, **kwargs):
         connection = kwargs.get('connection', None)
         if connection and connection.settings_dict['ENGINE'] == 'django.db.backends.mysql':
             return 'bigint UNSIGNED'
         else:
-            return super(BigAutoField, self).db_type(*args, **kwargs)
+            return models.BigIntegerField.db_type(self, *args, **kwargs)
     
     def south_field_triple(self):
         "Returns a suitable description of this field for South."
