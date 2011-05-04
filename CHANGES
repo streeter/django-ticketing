@@ -26,4 +26,7 @@ isn't guaranteed to exist!
 0.6.0
 * Fix calling of parent methods in fields.
 
-(History beyond 0.6.0 is not present)
+0.6.1
+* Fix some typos in the README. Thanks https://github.com/blueyed !
+
+(History beyond 0.6.1 is not present)
