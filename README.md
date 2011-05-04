@@ -1,7 +1,7 @@
 ## About
 
 An implementation of a Django model that returns tickets, as described
-by the [Flickr blog post][flickr].
+in the [Flickr blog post][flickr].
 
 ## Installation
 
@@ -11,18 +11,18 @@ I uploaded it to [PyPi][pypi], so you can grab it there if you'd like with
 pip install django-ticketing
 ```
 
-or install with pip the git address:
+or install it with pip using the git address:
 
 ```
 pip install git+git@github.com:streeter/django-ticketing.git
 ```
 
-You're choice. Then add `ticketing` to your `INSTALLED_APPS`.
+Then add `ticketing` to your `INSTALLED\_APPS`.
 
 ## Usage
 
 To use this, you can either use the model interface, or just the shortcut
-function defined in `ticketing.models`. That usage looks like the following:
+function defined in `ticketing.models`. That usage looks like this:
 
 ```python
 # Import the function
@@ -33,22 +33,23 @@ ticket = get_ticket()
 ```
 
 This assumes you've had the single table that needs to be created in the DB,
-in other words, run `syncdb` or migrated with [South][south].
+in other words, you have run `syncdb` or migrated with e.g. [South][south].
 
 ### Multiple Sequences
 
-`django-ticketing` also supports multiple sequences, which allows one to have
+`django-ticketing` also supports multiple sequences, which allows to have
 sequences of tickets that are independent. This means you could have a sequence
 for users, a sequence for posts and a sequence for widgets. This is configured
 through your Django settings configuration.
 
-Simply define a setting called `TICKETING_SEQUENCES` with a tuple of sequence
-names that can be valid table names. This defaults to the tuple `('default',)`.
-In addition, you can define the default sequence new tickets are taken from with
-the setting `TICKETING_DEFAULT_SEQUENCE`, which defaults to `'default'`.
+Simply define a setting called `TICKETING\_SEQUENCES` with a tuple of sequence
+names that have to be valid table names. This defaults to the tuple `('default',)`.
+In addition, you can define the default sequence from which new tickets are
+taken from with the setting `TICKETING_DEFAULT_SEQUENCE`, which defaults to
+`'default'`.
 
-Note that `TICKETING_DEFAULT_SEQUENCE` must a sequence name that is defined
-inside of `TICKETING_SEQUENCES`, otherwise an exception will be raised at
+Note that `TICKETING_DEFAULT_SEQUENCE` has to be a sequence name that is defined
+inside of `TICKETING\_SEQUENCES`, otherwise an exception will be raised
 during setup.
 
 So to have sequences for the above example, put the following lines in your
@@ -99,9 +100,10 @@ OK
 ```
 
 The test suite can run on all DB backends supported by Django. By default
-it runs using sqlite3. To run on MySQL, uncomment the section in `runtests.py`
-and then create a DB that Django can connect to, and give the Django user
-permissions to create a new testing DB, run the following commands:
+it runs using sqlite3.
+To run on MySQL, uncomment the marked section in `runtests.py`, create a
+DB that Django can connect to and give the Django user permissions to
+create a new testing DB, e.g. by running the following commands:
 
 ``` bash
 mysql -u root -e "DROP DATABASE ticketing_test";
