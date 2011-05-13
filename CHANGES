@@ -29,4 +29,7 @@ isn't guaranteed to exist!
 0.6.1
 * Fix some typos in the README. Thanks https://github.com/blueyed !
 
+0.6.2
+* Change how version is being stored.
+
 (History beyond 0.6.1 is not present)
