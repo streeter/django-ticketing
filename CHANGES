@@ -32,4 +32,7 @@ isn't guaranteed to exist!
 0.6.2
 * Change how version is being stored.
 
+0.6.3
+* Update the package system and improve setup.py
+
 (History beyond 0.6.2 is not present)
