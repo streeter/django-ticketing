@@ -25,13 +25,13 @@ setup(
     author='Chris Streeter',
     author_email='pypi@chrisstreeter.com',
     url='http://github.com/streeter/django-ticketing',
-    description = 'Generate tickets efficiently in a database in Django',
+    description='Generate tickets efficiently in a database in Django',
     packages=find_packages(),
     license=open('LICENSE').read(),
     zip_safe=False,
     install_requires=[
     ],
-    test_suite = 'ticketing.tests',
+    test_suite='ticketing.tests',
     include_package_data=True,
     cmdclass={"test": mytest},
     classifiers=[
