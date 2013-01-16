@@ -27,6 +27,7 @@ setup(
     url='http://github.com/streeter/django-ticketing',
     description = 'Generate tickets efficiently in a database in Django',
     packages=find_packages(),
+    license=open('LICENSE').read(),
     zip_safe=False,
     install_requires=[
     ],
@@ -37,6 +38,7 @@ setup(
         'Framework :: Django',
         'Intended Audience :: Developers',
         'Intended Audience :: System Administrators',
+        'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Topic :: Software Development'
     ],
