@@ -3,7 +3,5 @@ Ticketing
 ~~~~~~~~~
 """
 
-import pkg_resources
-
-VERSION = tuple(map(int, pkg_resources.get_distribution('django-ticketing').version.split('.')))
-__version__ = VERSION
+VERSION = (0, 6, 2)
+__version__ = '.'.join(map(str, VERSION))

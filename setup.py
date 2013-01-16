@@ -1,15 +1,31 @@
 #!/usr/bin/env python
 
-version = '0.6.2'
+import os
+import sys
+
+import ticketing
 
 try:
-    from setuptools import setup, find_packages
+    from setuptools import setup
     from setuptools.command.test import test
 except ImportError:
     from ez_setup import use_setuptools
     use_setuptools()
-    from setuptools import setup, find_packages
+    from setuptools import setup
     from setuptools.command.test import test
+
+
+if sys.argv[-1] == 'publish':
+    os.system('python setup.py sdist upload')
+    sys.exit()
+
+
+packages = [
+    'ticketing',
+]
+
+requires = [
+]
 
 
 class mytest(test):
@@ -21,16 +37,15 @@ class mytest(test):
 
 setup(
     name='django-ticketing',
-    version=version,
+    version=ticketing.__version__,
     author='Chris Streeter',
     author_email='pypi@chrisstreeter.com',
     url='http://github.com/streeter/django-ticketing',
     description='Generate tickets efficiently in a database in Django',
-    packages=find_packages(),
+    packages=packages,
     license=open('LICENSE').read(),
     zip_safe=False,
-    install_requires=[
-    ],
+    install_requires=requires,
     test_suite='ticketing.tests',
     include_package_data=True,
     cmdclass={"test": mytest},
