@@ -21,8 +21,8 @@ DEFAULT_SEQUENCE = getattr(settings, 'TICKETING_DEFAULT_SEQUENCE', 'default')
 
 if DEFAULT_SEQUENCE not in SEQUENCES:
     msg = ("Cannot specify a default sequence '%s' that " +
-        "is not in the list of allowed sequences %s") % (
-        DEFAULT_SEQUENCE, str(SEQUENCES)
+           "is not in the list of allowed sequences %s") % (
+            DEFAULT_SEQUENCE, str(SEQUENCES)
     )
     from ticketing.exceptions import ImproperlyConfigured
     raise ImproperlyConfigured(msg)
