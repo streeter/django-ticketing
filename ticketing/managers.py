@@ -33,8 +33,8 @@ class TicketingManager(models.Manager):
             lastrow_id = getattr(cursor, 'lastrowid', None)
             if lastrow_id is None:
                 # Hack. Select the row and get the id manually
-                result = super(TicketingManager, self).get_query_set()\
-                    .filter(stub=True)[0]
+                result = super(TicketingManager, self).get_query_set().filter(
+                    stub=True)[0]
                 lastrow_id = result.id
 
             return lastrow_id
