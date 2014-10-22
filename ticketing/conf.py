@@ -9,7 +9,7 @@ DEBUG = getattr(settings, 'DEBUG', False) and not TESTING
 APP_LABEL = getattr(settings, 'TICKETING_APP_LABEL', 'ticketing')
 
 # A list of names that define all the different ticketing tables. Every
-# sequence is a sequence of tickets that can be retreived.
+# sequence is a sequence of tickets that can be retrieved.
 SEQUENCES = getattr(settings, 'TICKETING_SEQUENCES', ('default', ))
 
 # When testing, add a second sequence so we can test specifying sequences
