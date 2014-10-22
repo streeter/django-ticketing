@@ -1,7 +1,8 @@
 ## About
 
 An implementation of a Django model that returns tickets, as described
-in the [Flickr blog post][flickr].
+in the [Flickr blog post][flickr]. Currently, requires MySQL and Django 1.6 or
+higher.
 
 ## Installation
 
