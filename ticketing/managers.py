@@ -43,5 +43,10 @@ class TicketingManager(models.Manager):
         try:
             return self._internal_get_ticket()
         except exceptions:
-            # Retry once
+            # If the transaction needs a rollback, because the database
+            # backend does not prevent running SQL queries in broken
+            # transactions, we need to say that we have handled the rollback
+            # so we can try one more time.
+            if transaction.get_rollback(using=self.db):
+                transaction.set_rollback(False, using=self.db)
             return self._internal_get_ticket()
