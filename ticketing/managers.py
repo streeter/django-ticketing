@@ -41,10 +41,13 @@ class TicketingManager(models.Manager):
         try:
             return self._internal_get_ticket()
         except exceptions:
-            # If the transaction needs a rollback, because the database
-            # backend does not prevent running SQL queries in broken
-            # transactions, we need to say that we have handled the rollback
-            # so we can try one more time.
-            if transaction.get_rollback(using=self.db):
+            connection = connections[self.db]
+            # If the transaction is in an `atomic` block, and needs a rollback,
+            # we should mark the database as rolled back. This is because the
+            # database backend may not prevent running SQL queries in broken
+            # transactions, in which case we need to say that we have handled
+            # the rollback so we can try one more time.
+            if (connection.in_atomic_block
+                    and transaction.get_rollback(using=self.db)):
                 transaction.set_rollback(False, using=self.db)
             return self._internal_get_ticket()
