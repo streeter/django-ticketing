@@ -1,11 +1,18 @@
 Changelog
 ---------
 
+# 0.7.2
+
+* Ensure that we only try to set the rollback status if the connection
+is inside of an atomic block.
+
+
 # 0.7.1
 
 * Fixes [#6](https://github.com/streeter/django-ticketing/issues/6) by marking
 the database as not needing a rollback after catching an exception to retry
 generating a ticket.
+
 
 # 0.7.0
 
