@@ -1,4 +1,4 @@
-from django.db import models, OperationalError, transaction
+from django.db import connections, models, OperationalError, transaction
 exceptions = (OperationalError, )
 try:
     # Also try to catch a MySQLdb-specific OperationalError
@@ -21,8 +21,6 @@ class TicketingManager(models.Manager):
         raise NotImplementedError()
 
     def _internal_get_ticket(self):
-        from django.db import connections
-
         sql = "REPLACE INTO `%s` " % (self.model._meta.db_table)
         sql += "(`stub`) VALUES (%s)"
 
