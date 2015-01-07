@@ -2,14 +2,18 @@ from ticketing import conf
 from django.db import models
 
 
+def _conn_is_mysql(connection):
+    return (bool(connection) and
+            connection.settings_dict['ENGINE'] == 'django.db.backends.mysql')
+
+
 class BigAutoField(models.AutoField):
 
-    def db_type(self, *args, **kwargs):
-        connection = kwargs.get('connection', None)
-        if connection and connection.settings_dict['ENGINE'] == 'django.db.backends.mysql':
+    def db_type(self, connection):
+        if _conn_is_mysql(connection):
             return 'bigint UNSIGNED AUTO_INCREMENT'
         else:
-            return models.AutoField.db_type(self, *args, **kwargs)
+            return super(BigAutoField, self).db_type(connection)
 
 
 class TicketField(models.BigIntegerField):
@@ -20,33 +24,30 @@ class TicketField(models.BigIntegerField):
         """
         Set up this field with the name of the sequence to use
         """
-        if sequence:
-            self.sequence = sequence
-        else:
-            # Use the default sequence
-            self.sequence = conf.DEFAULT_SEQUENCE
+        self.sequence = sequence or conf.DEFAULT_SEQUENCE
         kwargs['editable'] = False
-        models.BigIntegerField.__init__(self, **kwargs)
+        super(TicketField, self).__init__(**kwargs)
 
     def pre_save(self, model_instance, add):
         """
         When saving the DB, if we are adding this instance, get a ticket
         value for this field. Otherwise pull it from the model instance.
+        If the field on the instance already has a value, we won't
+        a new ticketing value.
         """
-        if add:
+        if add and not getattr(model_instance, self.attname):
             from ticketing.models import get_ticket
             value = get_ticket(self.sequence)
             setattr(model_instance, self.attname, value)
             return value
         else:
-            return models.BigIntegerField.pre_save(self, model_instance, add)
+            return super(TicketField, self).pre_save(model_instance, add)
 
-    def db_type(self, *args, **kwargs):
-        connection = kwargs.get('connection', None)
-        if connection and connection.settings_dict['ENGINE'] == 'django.db.backends.mysql':
+    def db_type(self, connection):
+        if _conn_is_mysql(connection):
             return 'bigint UNSIGNED'
         else:
-            return models.BigIntegerField.db_type(self, *args, **kwargs)
+            return super(TicketField, self).db_type(connection)
 
     def south_field_triple(self):
         "Returns a suitable description of this field for South."
