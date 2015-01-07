@@ -1,6 +1,10 @@
 Changelog
 ---------
 
+# 0.7.3
+
+* TicketField will only generate a new ticket value when the field value is None (potentially breaking change)
+
 # 0.7.2
 
 * Ensure that we only try to set the rollback status if the connection
