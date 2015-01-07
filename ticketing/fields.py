@@ -32,8 +32,10 @@ class TicketField(models.BigIntegerField):
         """
         When saving the DB, if we are adding this instance, get a ticket
         value for this field. Otherwise pull it from the model instance.
+        If the field on the instance already has a value, we won't
+        a new ticketing value.
         """
-        if add:
+        if add and not getattr(model_instance, self.attname):
             from ticketing.models import get_ticket
             value = get_ticket(self.sequence)
             setattr(model_instance, self.attname, value)
