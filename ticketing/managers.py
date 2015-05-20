@@ -14,10 +14,7 @@ class TicketingManager(models.Manager):
         ticket_id = self.get_ticket()
         return self.model(id=ticket_id, stub=self.model.STUB_DEFAULT)
 
-    def get_query_set(self):
-        raise NotImplementedError()
-
-    def get_empty_query_set(self):
+    def get_queryset(self):
         raise NotImplementedError()
 
     def _internal_get_ticket(self):
@@ -31,7 +28,7 @@ class TicketingManager(models.Manager):
             lastrow_id = getattr(cursor, 'lastrowid', None)
             if lastrow_id is None:
                 # Hack. Select the row and get the id manually
-                result = super(TicketingManager, self).get_query_set().filter(
+                result = super(TicketingManager, self).get_queryset().filter(
                     stub=True)[0]
                 lastrow_id = result.id
 
