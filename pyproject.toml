@@ -1,0 +1,55 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "django-ticketing"
+dynamic = ["version"]
+description = "Generate tickets efficiently in a database in Django"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Chris Streeter", email = "pypi@chrisstreeter.com" }]
+dependencies = ["Django>=5.2"]
+classifiers = [
+    "Framework :: Django",
+    "Framework :: Django :: 5.2",
+    "Framework :: Django :: 6.0",
+    "Framework :: Django :: 6.1",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
+    "Topic :: Software Development",
+]
+
+[project.urls]
+Repository = "https://github.com/streeter/django-ticketing"
+
+[project.optional-dependencies]
+test = ["pytest>=9,<10", "pytest-django>=4.14,<5"]
+dev = ["django-ticketing[test]", "tox>=4.28,<5", "ruff==0.17.2"]
+
+[tool.setuptools.dynamic]
+version = { attr = "ticketing.__version__" }
+
+[tool.setuptools.packages.find]
+include = ["ticketing*"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "ticketing.tests.settings"
+testpaths = ["ticketing/tests"]
+addopts = "--strict-config --strict-markers"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "UP"]

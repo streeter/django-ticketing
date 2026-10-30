@@ -8,3 +8,9 @@ pip-log.txt
 /example_project/local_settings.py
 /docs/html
 /docs/doctrees
+.env
+.venv/
+.tox/
+.pytest_cache/
+.ruff_cache/
+__pycache__/

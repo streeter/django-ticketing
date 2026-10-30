@@ -1,15 +1,16 @@
-from django.db import connections, models, OperationalError, transaction
-exceptions = (OperationalError, )
+from django.db import OperationalError, connections, models, transaction
+
+exceptions = (OperationalError,)
 try:
     # Also try to catch a MySQLdb-specific OperationalError
     from MySQLdb import OperationalError as MySQLOperationalError
-    exceptions += (MySQLOperationalError, )
+
+    exceptions += (MySQLOperationalError,)
 except ImportError:
     pass
 
 
 class TicketingManager(models.Manager):
-
     def create(self):
         ticket_id = self.get_ticket()
         return self.model(id=ticket_id, stub=self.model.STUB_DEFAULT)
@@ -18,18 +19,17 @@ class TicketingManager(models.Manager):
         raise NotImplementedError()
 
     def _internal_get_ticket(self):
-        sql = "REPLACE INTO `%s` " % (self.model._meta.db_table)
+        sql = f"REPLACE INTO `{self.model._meta.db_table}` "
         sql += "(`stub`) VALUES (%s)"
 
         with transaction.atomic(using=self.db):
             cursor = connections[self.db].cursor()
             cursor.execute(sql, [self.model.STUB_DEFAULT])
 
-            lastrow_id = getattr(cursor, 'lastrowid', None)
+            lastrow_id = getattr(cursor, "lastrowid", None)
             if lastrow_id is None:
                 # Hack. Select the row and get the id manually
-                result = super(TicketingManager, self).get_queryset().filter(
-                    stub=True)[0]
+                result = super().get_queryset().filter(stub=True)[0]
                 lastrow_id = result.id
 
             return lastrow_id
@@ -44,7 +44,6 @@ class TicketingManager(models.Manager):
             # database backend may not prevent running SQL queries in broken
             # transactions, in which case we need to say that we have handled
             # the rollback so we can try one more time.
-            if (connection.in_atomic_block
-                    and transaction.get_rollback(using=self.db)):
+            if connection.in_atomic_block and transaction.get_rollback(using=self.db):
                 transaction.set_rollback(False, using=self.db)
             return self._internal_get_ticket()
