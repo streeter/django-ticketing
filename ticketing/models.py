@@ -1,5 +1,6 @@
-from ticketing import conf
 from django.db import models
+
+from ticketing import conf
 from ticketing.fields import BigAutoField
 from ticketing.managers import TicketingManager
 
@@ -36,29 +37,28 @@ class BaseTicketing(models.Model):
         """Alias for id"""
         return self.id
 
-    def __unicode__(self):
-        return u'Ticket %d' % self.ticket
-
     def __str__(self):
-        return str(unicode(self))
+        return f"Ticket {self.ticket}"
 
     class Meta:
         abstract = True
 
+
 # Create each model for the ones defined in the configuration
 for seq in conf.SEQUENCES:
+
     class Meta:
         pass
 
     # Set the application label
-    setattr(Meta, 'app_label', conf.APP_LABEL)
+    setattr(Meta, "app_label", conf.APP_LABEL)
 
     # __module__ is used with app_label to create the name of the table.
     # In addition, we want to have a Meta class so that the Django code
     # will work properly.
     attrs = {
-        '__module__': seq,
-        'Meta': Meta,
+        "__module__": seq,
+        "Meta": Meta,
     }
 
     # Create the model definition
@@ -78,10 +78,12 @@ def get_ticket(sequence=conf.DEFAULT_SEQUENCE):
 
     """
     if sequence not in ticketing_models:
-        msg = "Sequence '%s' is not one of the configured sequences %s" % (
-            sequence, conf.SEQUENCES
+        msg = (
+            f"Sequence '{sequence}' is not one of the configured sequences "
+            f"{conf.SEQUENCES}"
         )
         from ticketing.exceptions import BadSequenceName
+
         raise BadSequenceName(msg)
     ticket = ticketing_models[sequence].objects.create()
     return ticket.ticket
