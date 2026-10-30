@@ -1,10 +1,17 @@
 Changelog
 ---------
 
-# Unreleased
+# 0.8.0 (2026-10-29)
 
-* Test with pytest and Tox on current Python and Django releases, SQLite,
-  and MySQL 8.4 and 26.10. MySQL 8.4 is the minimum supported version.
+* Require Python 3.11 or higher, Django 5.2 or higher, and MySQL 8.4 or higher
+  when using MySQL. SQLite remains supported.
+* Replace the legacy test runner with pytest and a Tox compatibility matrix
+  covering Python 3.11–3.15, Django 5.2/6.0/6.1, and MySQL 8.4/26.10.
+* Add GitHub Actions CI that discovers the test matrix from Tox.
+* Apply Ruff formatting throughout the project and check lint and formatting
+  in CI.
+* Modernize packaging with `pyproject.toml` and remove obsolete setuptools
+  test and publishing commands.
 * Preserve `TicketField` sequence configuration in Django migrations.
 
 # 0.7.3
