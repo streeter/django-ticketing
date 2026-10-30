@@ -119,17 +119,15 @@ tox -e py315-django61
 tox -e py315-django61 -- -k test_get_ticket
 ```
 
-The matrix uses the latest patch release in each Django series:
-
-| Django | Python |
-| --- | --- |
-| 5.2 LTS | 3.11, 3.12, 3.13, 3.14 |
-| 6.0 | 3.12, 3.13, 3.14 |
-| 6.1 | 3.12, 3.13, 3.14, 3.15 |
+The matrix uses the latest patch release in each Django series. List the
+configured environments with `tox list -d --no-desc`.
 
 Tests use an in-memory SQLite database and configure multiple ticket sequences
-in `ticketing/tests/settings.py`. GitHub Actions runs every matrix combination
-and the Ruff checks on pushes and pull requests.
+in `ticketing/tests/settings.py`. `tox.ini` defines the test matrix; GitHub
+Actions discovers it with `tox list -d --no-desc` and runs every combination
+and the Ruff checks on pushes and pull requests. Add or remove environments
+in `tox.ini` to update both local and CI runs. CI infers the Python version
+from each environment's `py<major><minor>` prefix (for example, `py315`).
 
 Format all Python code and check lint and formatting locally with:
 
