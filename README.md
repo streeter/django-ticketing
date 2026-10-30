@@ -2,7 +2,7 @@
 
 An implementation of a Django model that returns tickets, as described
 in the [Flickr blog post][flickr]. Requires Python 3.11 or higher and Django 5.2
-or higher. Ticket generation supports MySQL and SQLite.
+or higher. Ticket generation supports MySQL 8.4 or higher and SQLite.
 
 ## Installation
 
@@ -128,6 +128,26 @@ Actions discovers it with `tox list -d --no-desc` and runs every combination
 and the Ruff checks on pushes and pull requests. Add or remove environments
 in `tox.ini` to update both local and CI runs. CI infers the Python version
 from each environment's `py<major><minor>` prefix (for example, `py315`).
+
+The MySQL environments cover MySQL 8.4 (the minimum supported version) and
+26.10 with each supported Django series. CI derives the MySQL service image
+from the `-mysql-<version>` suffix in `tox.ini`.
+
+For a local MySQL run, provide a disposable database server and credentials
+for a user that can create and drop test databases:
+
+```bash
+export TICKETING_TEST_DB_USER=root
+export TICKETING_TEST_DB_PASSWORD=ticketing-tests
+export TICKETING_TEST_DB_PORT=3384
+tox -e py315-django61-mysql-8.4
+```
+
+The host defaults to `127.0.0.1`; override it with `TICKETING_TEST_DB_HOST`.
+Django creates and drops `test_ticketing`; set `TICKETING_TEST_DB_NAME` to
+change the base database name. To run the complete matrix against multiple
+local MySQL servers, use `TICKETING_TEST_MYSQL_8_4_PORT` and
+`TICKETING_TEST_MYSQL_26_10_PORT` to select a port for each version.
 
 Format all Python code and check lint and formatting locally with:
 

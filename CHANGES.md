@@ -1,6 +1,12 @@
 Changelog
 ---------
 
+# Unreleased
+
+* Test with pytest and Tox on current Python and Django releases, SQLite,
+  and MySQL 8.4 and 26.10. MySQL 8.4 is the minimum supported version.
+* Preserve `TicketField` sequence configuration in Django migrations.
+
 # 0.7.3
 
 * TicketField will only generate a new ticket value when the field value is None (potentially breaking change)

@@ -4,7 +4,7 @@ from ticketing import conf
 from ticketing.exceptions import BadSequenceName
 from ticketing.models import get_ticket, ticketing_models
 
-pytestmark = pytest.mark.django_db
+pytestmark = pytest.mark.django_db(transaction=True, reset_sequences=True)
 
 
 def test_get_ticket():

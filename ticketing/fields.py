@@ -29,6 +29,11 @@ class TicketField(models.BigIntegerField):
         kwargs["editable"] = False
         super().__init__(**kwargs)
 
+    def deconstruct(self):
+        name, path, args, kwargs = super().deconstruct()
+        kwargs["sequence"] = self.sequence
+        return name, path, args, kwargs
+
     def pre_save(self, model_instance, add):
         """
         When saving the DB, if we are adding this instance, get a ticket
